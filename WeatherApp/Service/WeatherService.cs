@@ -17,13 +17,13 @@ namespace WeatherApp.Service
 
         public async Task<WeatherModel> GetWeatherInformationByCity(string city)
         {
-            var geoInformation = await _geoInformationService.GetGeoInformationByCity(city);
+            var geoInformation = await _geoInformationService.GetGeoInformationByCity(city) ?? throw new ArgumentException("No city information found");
             return await GetWeatherInformation(geoInformation);
         }
 
         public async Task<WeatherModel> GetWeatherInformationByZipCode(string zipCode)
         {
-            var geoInfromation = await _geoInformationService.GetGeoInformationByZipCode(zipCode);
+            var geoInfromation = await _geoInformationService.GetGeoInformationByZipCode(zipCode) ?? throw new ArgumentException("No city information found");
             return await GetWeatherInformation(geoInfromation);
         }
 
