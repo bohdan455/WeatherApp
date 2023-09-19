@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="text-danger" asp-validation-summary="All"></div>
+    <h1>Get weather by zip code</h1>
+    <form asp-action="ZipCode">
+        <div class="form-group">
+            <input name="Code" type="text" class="form-control" placeholder="Zip Code">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <h1>Get weather by city name</h1>
+    <form asp-action="CityName">
+        <div class="form-group">
+            <input name="Name" type="text" class="form-control" placeholder="City Name">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
