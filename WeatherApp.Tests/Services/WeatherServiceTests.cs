@@ -1,9 +1,9 @@
 ﻿using Moq;
-using WeatherApp.Models;
-using WeatherApp.Service.Interfaces;
-using WeatherApp.Service;
 using WeatherApp.DataAccess.Entities;
 using WeatherApp.Dto;
+using WeatherApp.Models;
+using WeatherApp.Service;
+using WeatherApp.Service.Interfaces;
 
 namespace WeatherApp.Tests.Services
 {

@@ -79,7 +79,7 @@ namespace WeatherApp.Service
             }
         }
 
-        private void AssignDtoToDb(WeatherInformation weatherInformationToDb,WeatherInformationDto weatherInformationDto)
+        private void AssignDtoToDb(WeatherInformation weatherInformationToDb, WeatherInformationDto weatherInformationDto)
         {
             weatherInformationToDb.Temperature = weatherInformationDto.Temperature;
             weatherInformationToDb.Humidity = weatherInformationDto.Humidity;

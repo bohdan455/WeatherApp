@@ -30,7 +30,7 @@ namespace WeatherApp.BackgroundServices
                     _logger.LogError("Error in background service: {e}", e.ToString());
                 }
                 _logger.LogInformation("Weather information checked");
-                await Task.Delay(hours * millisecondsInHour,stoppingToken);
+                await Task.Delay(hours * millisecondsInHour, stoppingToken);
             }
         }
 

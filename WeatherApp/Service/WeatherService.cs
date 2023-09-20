@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Reflection.Emit;
-using WeatherApp.DataAccess;
 using WeatherApp.DataAccess.Entities;
 using WeatherApp.Dto;
 using WeatherApp.Models;
@@ -26,7 +24,7 @@ namespace WeatherApp.Service
         public async Task<WeatherModel> GetWeatherInformationByCity(string city)
         {
             var weatherInformation = await _weatherDatabaseService.TryGetWeatherInformationByCity(city);
-            if(weatherInformation != null)
+            if (weatherInformation != null)
             {
                 return ParseWeatherModelFromDb(weatherInformation);
             }
@@ -51,7 +49,7 @@ namespace WeatherApp.Service
             else
             {
                 var geoInformation = await _geoInformationService.GetGeoInformationByZipCode(zipCode) ?? throw new ArgumentException("No city information found");
-                var weather =  await GetWeatherInformationFromApi(geoInformation);
+                var weather = await GetWeatherInformationFromApi(geoInformation);
                 var weatherInformationDto = ParseToDto(weather, geoInformation);
                 weatherInformationDto.ZipCode = zipCode;
                 await _weatherDatabaseService.SaveWeatherInformationToDb(weatherInformationDto);

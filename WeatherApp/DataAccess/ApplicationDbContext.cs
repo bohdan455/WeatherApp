@@ -7,7 +7,7 @@ namespace WeatherApp.DataAccess
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<City> Cities { get; set; }

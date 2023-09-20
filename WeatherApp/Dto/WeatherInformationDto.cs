@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using WeatherApp.DataAccess.Entities;
-
-namespace WeatherApp.Dto
+﻿namespace WeatherApp.Dto
 {
     public class WeatherInformationDto
     {

@@ -1,12 +1,7 @@
 ﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WeatherApp.Models;
-using WeatherApp.Service.Interfaces;
 using WeatherApp.Service;
+using WeatherApp.Service.Interfaces;
 
 namespace WeatherApp.Tests.Services
 {
