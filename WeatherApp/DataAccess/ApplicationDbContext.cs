@@ -31,9 +31,9 @@ namespace WeatherApp.DataAccess
                 .IsRequired(false);
 
             modelBuilder.Entity<WeatherInformation>()
-                .HasOne(wi => wi.City)
-                .WithOne(zc => zc.WeatherInformation)
-                .HasForeignKey<WeatherInformation>(wi => wi.ZipCodeId)
+                .HasMany(wi => wi.Cities)
+                .WithOne(c => c.WeatherInformation)
+                .HasForeignKey(c => c.WeatherInformationId)
                 .IsRequired();
         }
     }

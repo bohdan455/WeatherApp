@@ -10,12 +10,14 @@ namespace WeatherApp.Tests.Services
         private readonly WeatherService _weatherService;
         private readonly Mock<IGeoInformationService> _geoInformationServiceMock;
         private readonly Mock<IOpenWeatherMapApiService> _openWeatherMapApiServiceMock;
+        private readonly Mock<IWeatherDatabaseService> _weatherDatabaseServiceMock;
 
         public WeatherServiceTests()
         {
             _geoInformationServiceMock = new Mock<IGeoInformationService>();
             _openWeatherMapApiServiceMock = new Mock<IOpenWeatherMapApiService>();
-            _weatherService = new WeatherService(_geoInformationServiceMock.Object, _openWeatherMapApiServiceMock.Object);
+            _weatherDatabaseServiceMock = new Mock<IWeatherDatabaseService>();
+            _weatherService = new WeatherService(_geoInformationServiceMock.Object, _openWeatherMapApiServiceMock.Object, _weatherDatabaseServiceMock.Object);
         }
 
         [Fact]

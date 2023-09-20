@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WeatherApp.DataAccess.Entities;
 
-namespace WeatherApp.DataAccess.Entities
+namespace WeatherApp.Dto
 {
-    public class WeatherInformation
+    public class WeatherInformationDto
     {
-        [Required]
-        public int Id { get; set; }
-
-        [MaxLength(255)]
         public string DefaultLocationName { get; set; } = default!;
 
         public double Temperature { get; set; }
@@ -26,14 +23,13 @@ namespace WeatherApp.DataAccess.Entities
 
         public double RainVolume { get; set; }
 
-        public ICollection<City> Cities { get; set; } = new List<City>();
+        public string? City { get; set; }
 
-        public ZipCode? ZipCode { get; set; }
+        public string? ZipCode { get; set; }
 
-        public int? ZipCodeId { get; set; }
+        public double Lat { get; set; }
 
-        public GeoInfromation GeoInfromation { get; set; } = default!;
+        public double Lon { get; set; }
 
-        public int GeoInfromationId { get; set; }
     }
 }

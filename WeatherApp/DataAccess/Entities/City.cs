@@ -12,5 +12,7 @@ namespace WeatherApp.DataAccess.Entities
         public string Name { get; set; } = default!;
 
         public WeatherInformation WeatherInformation { get; set; } = default!;
+
+        public int WeatherInformationId { get; set; }
     }
 }
