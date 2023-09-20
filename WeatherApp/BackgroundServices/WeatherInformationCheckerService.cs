@@ -23,7 +23,7 @@ namespace WeatherApp.BackgroundServices
             {
                 try
                 {
-                    await CheckWeatherInformation();
+                    await RefreshWeatherInformation();
                 }
                 catch (Exception e)
                 {
@@ -34,7 +34,7 @@ namespace WeatherApp.BackgroundServices
             }
         }
 
-        private async Task CheckWeatherInformation()
+        private async Task RefreshWeatherInformation()
         {
             using var scope = _serviceProvider.CreateScope();
             var weatherDatabaseService = scope.ServiceProvider.GetRequiredService<IWeatherDatabaseService>();
