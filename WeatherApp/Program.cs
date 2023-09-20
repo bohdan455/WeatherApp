@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WeatherApp.BackgroundServices;
 using WeatherApp.DataAccess;
 using WeatherApp.Service;
 using WeatherApp.Service.Interfaces;
@@ -11,6 +12,7 @@ builder.Services.AddScoped<IWeatherService, WeatherService>();
 builder.Services.AddScoped<IGeoInformationService, GeoInformationService>();
 builder.Services.AddScoped<IOpenWeatherMapApiService, OpenWeatherMapApiService>();
 builder.Services.AddScoped<IWeatherDatabaseService, WeatherDatabaseService>();
+builder.Services.AddHostedService<WeatherInformationCheckerService>();
 builder.Services.AddHttpClient("OpenWeather", config =>
 {
     const string openWeatherUrl = "https://api.openweathermap.org";

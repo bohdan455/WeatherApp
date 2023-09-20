@@ -35,7 +35,8 @@ namespace WeatherApp.Service
         {
             var weatherInformationToDb = await _context.WeatherInformations.Include(wi => wi.Cities).FirstOrDefaultAsync(wi => wi.DefaultLocationName == weatherInformation.DefaultLocationName);
 
-            weatherInformationToDb ??= ParseDtoToDb(weatherInformation);
+            weatherInformationToDb ??= new WeatherInformation();
+            AssignDtoToDb(weatherInformationToDb, weatherInformation);
 
             await SetZipCodeToWeatherInformationWhenItIsNotNull(weatherInformationToDb, weatherInformation.ZipCode);
 
@@ -43,6 +44,11 @@ namespace WeatherApp.Service
 
             _context.WeatherInformations.Update(weatherInformationToDb);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<WeatherInformation>> GetAll()
+        {
+            return await _context.WeatherInformations.Include(wi => wi.GeoInfromation).ToListAsync();
         }
 
         private async Task SetZipCodeToWeatherInformationWhenItIsNotNull(WeatherInformation weatherInformationToDb, string? zipCode)
@@ -73,25 +79,22 @@ namespace WeatherApp.Service
             }
         }
 
-        private WeatherInformation ParseDtoToDb(WeatherInformationDto weatherInformation)
+        private void AssignDtoToDb(WeatherInformation weatherInformationToDb,WeatherInformationDto weatherInformationDto)
         {
-            return new WeatherInformation
+            weatherInformationToDb.Temperature = weatherInformationDto.Temperature;
+            weatherInformationToDb.Humidity = weatherInformationDto.Humidity;
+            weatherInformationToDb.Pressure = weatherInformationDto.Pressure;
+            weatherInformationToDb.WindSpeed = weatherInformationDto.WindSpeed;
+            weatherInformationToDb.GeoInfromation = new GeoInfromation
             {
-                Temperature = weatherInformation.Temperature,
-                Humidity = weatherInformation.Humidity,
-                Pressure = weatherInformation.Pressure,
-                WindSpeed = weatherInformation.WindSpeed,
-                GeoInfromation = new GeoInfromation
-                {
-                    Lat = weatherInformation.Lat,
-                    Lon = weatherInformation.Lon
-                },
-                DefaultLocationName = weatherInformation.DefaultLocationName,
-                FeelsLikeTemperature = weatherInformation.FeelsLikeTemperature,
-                MaximumTemperature = weatherInformation.MaximumTemperature,
-                MinimumTemperature = weatherInformation.MinimumTemperature,
-                RainVolume = weatherInformation.RainVolume,
+                Lat = weatherInformationDto.Lat,
+                Lon = weatherInformationDto.Lon
             };
+            weatherInformationToDb.DefaultLocationName = weatherInformationDto.DefaultLocationName;
+            weatherInformationToDb.FeelsLikeTemperature = weatherInformationDto.FeelsLikeTemperature;
+            weatherInformationToDb.MaximumTemperature = weatherInformationDto.MaximumTemperature;
+            weatherInformationToDb.MinimumTemperature = weatherInformationDto.MinimumTemperature;
+            weatherInformationToDb.RainVolume = weatherInformationDto.RainVolume;
         }
     }
 }
