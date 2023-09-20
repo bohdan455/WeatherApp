@@ -1,5 +1,4 @@
-﻿using System.Reflection.Emit;
-using WeatherApp.Models;
+﻿using WeatherApp.Models;
 using WeatherApp.Service.Interfaces;
 
 namespace WeatherApp.Service
@@ -15,7 +14,7 @@ namespace WeatherApp.Service
 
         public async Task<GeoInformationModel> GetGeoInformationByCity(string city)
         {
-            var listOfGeoInformation =  await _openWeatherMapApiService.SendGetRequestAndParse<List<GeoInformationModel>>($"/geo/1.0/direct?q={city}");
+            var listOfGeoInformation = await _openWeatherMapApiService.SendGetRequestAndParse<List<GeoInformationModel>>($"/geo/1.0/direct?q={city}");
 
             return listOfGeoInformation[0];
         }

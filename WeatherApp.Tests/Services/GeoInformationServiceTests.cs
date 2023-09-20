@@ -27,8 +27,8 @@ namespace WeatherApp.Tests.Services
             // Arrange
             var expected = new GeoInformationModel
             {
-                Lat = 42.3601m,
-                Lon = -71.0589m,
+                Lat = 42.3601,
+                Lon = -71.0589,
             };
 
             _openWeatherMapApiServiceMock
@@ -49,8 +49,8 @@ namespace WeatherApp.Tests.Services
             // Arrange
             var expected = new GeoInformationModel
             {
-                Lat = 42.3601m,
-                Lon = -71.0589m,
+                Lat = 42.3601,
+                Lon = -71.0589,
             };
 
             _openWeatherMapApiServiceMock

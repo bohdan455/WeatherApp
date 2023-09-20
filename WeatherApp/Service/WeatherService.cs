@@ -9,7 +9,7 @@ namespace WeatherApp.Service
         private readonly IGeoInformationService _geoInformationService;
         private readonly IOpenWeatherMapApiService _openWeatherMapApiService;
 
-        public WeatherService(IGeoInformationService geoInformationService,IOpenWeatherMapApiService openWeatherMapApiService)
+        public WeatherService(IGeoInformationService geoInformationService, IOpenWeatherMapApiService openWeatherMapApiService)
         {
             _geoInformationService = geoInformationService;
             _openWeatherMapApiService = openWeatherMapApiService;
@@ -31,7 +31,7 @@ namespace WeatherApp.Service
         {
             var weatherJson = await _openWeatherMapApiService.SendGetRequest($"/data/2.5/weather?lat={geoInformation.Lat}&lon={geoInformation.Lon}");
             dynamic data = JsonConvert.DeserializeObject(weatherJson) ?? throw new ArgumentException("No city information found");
-            return ParseWeatherModel(data);
+            var weather =  ParseWeatherModel(data);
         }
 
         private WeatherModel ParseWeatherModel(dynamic data)

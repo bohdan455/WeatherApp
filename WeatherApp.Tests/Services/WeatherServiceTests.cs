@@ -22,7 +22,7 @@ namespace WeatherApp.Tests.Services
         public async Task GetWeatherInformationByCity_ReturnsValidData()
         {
             // Arrange
-            var geoInformation = new GeoInformationModel { Lat = 42.3601m, Lon = -71.0589m };
+            var geoInformation = new GeoInformationModel { Lat = 42.3601, Lon = -71.0589 };
             _geoInformationServiceMock.Setup(x => x.GetGeoInformationByCity("Boston")).ReturnsAsync(geoInformation);
 
             var weatherJson = @"{
@@ -40,7 +40,7 @@ namespace WeatherApp.Tests.Services
             ""name"":""Boston"",
             ""cod"":200
         }";
-            _openWeatherMapApiServiceMock.Setup(x => x.SendGetRequest("/data/2.5/weather?lat=42.3601&lon=-71.0589")).ReturnsAsync(weatherJson);
+            _openWeatherMapApiServiceMock.Setup(x => x.SendGetRequest($"/data/2.5/weather?lat={geoInformation.Lat}&lon={geoInformation.Lon}")).ReturnsAsync(weatherJson);
 
             var expected = new WeatherModel
             {
@@ -74,7 +74,7 @@ namespace WeatherApp.Tests.Services
         public async Task GetWeatherInformationByZipCode_ReturnsValidData()
         {
             // Arrange
-            var geoInformation = new GeoInformationModel { Lat = 52.3791m, Lon = 4.9003m };
+            var geoInformation = new GeoInformationModel {Lat = 42.3601, Lon = -71.0589 };
             _geoInformationServiceMock.Setup(x => x.GetGeoInformationByZipCode("1000AA")).ReturnsAsync(geoInformation);
 
             var weatherJson = @"{
@@ -92,7 +92,7 @@ namespace WeatherApp.Tests.Services
             ""name"":""Amsterdam"",
             ""cod"":200
         }";
-            _openWeatherMapApiServiceMock.Setup(x => x.SendGetRequest("/data/2.5/weather?lat=52.3791&lon=4.9003")).ReturnsAsync(weatherJson);
+            _openWeatherMapApiServiceMock.Setup(x => x.SendGetRequest($"/data/2.5/weather?lat={geoInformation.Lat}&lon={geoInformation.Lon}")).ReturnsAsync(weatherJson);
 
             var expected = new WeatherModel
             {

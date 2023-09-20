@@ -16,7 +16,7 @@ namespace WeatherApp.Service
         public async Task<T> SendGetRequestAndParse<T>(string locationWithoutApiKey)
         {
             var responce = await GetResponce(locationWithoutApiKey);
-            if(responce.IsSuccessStatusCode)
+            if (responce.IsSuccessStatusCode)
             {
                 var geoInformation = await responce.Content.ReadFromJsonAsync<T>();
                 return geoInformation ?? throw new ArgumentException("No information found.");
