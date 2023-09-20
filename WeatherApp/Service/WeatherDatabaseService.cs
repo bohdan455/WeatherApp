@@ -35,7 +35,47 @@ namespace WeatherApp.Service
         {
             var weatherInformationToDb = await _context.WeatherInformations.Include(wi => wi.Cities).FirstOrDefaultAsync(wi => wi.DefaultLocationName == weatherInformation.DefaultLocationName);
 
-            weatherInformationToDb ??= new WeatherInformation
+            weatherInformationToDb ??= ParseDtoToDb(weatherInformation);
+
+            await SetZipCodeToWeatherInformationWhenItIsNotNull(weatherInformationToDb, weatherInformation.ZipCode);
+
+            await SetCityToWeatherInformationWhenItIsNotNull(weatherInformationToDb, weatherInformation.City);
+
+            _context.WeatherInformations.Update(weatherInformationToDb);
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task SetZipCodeToWeatherInformationWhenItIsNotNull(WeatherInformation weatherInformationToDb, string? zipCode)
+        {
+            if (zipCode != null)
+            {
+                var zipCodeToDb = await _context.ZipCodes.FirstOrDefaultAsync(zc => zc.Code == zipCode);
+                zipCodeToDb ??= new ZipCode
+                {
+                    Code = zipCode,
+                };
+
+                weatherInformationToDb.ZipCode = zipCodeToDb;
+            }
+        }
+
+        private async Task SetCityToWeatherInformationWhenItIsNotNull(WeatherInformation weatherInformationToDb, string? city)
+        {
+            if (city != null)
+            {
+                var cityToDb = await _context.Cities.FirstOrDefaultAsync(c => c.Name == city);
+                cityToDb ??= new City
+                {
+                    Name = city
+                };
+
+                weatherInformationToDb.Cities.Add(cityToDb);
+            }
+        }
+
+        private WeatherInformation ParseDtoToDb(WeatherInformationDto weatherInformation)
+        {
+            return new WeatherInformation
             {
                 Temperature = weatherInformation.Temperature,
                 Humidity = weatherInformation.Humidity,
@@ -52,31 +92,6 @@ namespace WeatherApp.Service
                 MinimumTemperature = weatherInformation.MinimumTemperature,
                 RainVolume = weatherInformation.RainVolume,
             };
-
-            if (weatherInformation.ZipCode != null)
-            {
-                var zipCode = await _context.ZipCodes.FirstOrDefaultAsync(zc => zc.Code == weatherInformation.ZipCode);
-                zipCode ??= new ZipCode
-                {
-                    Code = weatherInformation.ZipCode
-                };
-
-                weatherInformationToDb.ZipCode = zipCode;
-            }
-
-            if (weatherInformation.City != null)
-            {
-                var city = await _context.Cities.FirstOrDefaultAsync(c => c.Name == weatherInformation.City);
-                city ??= new City
-                {
-                    Name = weatherInformation.City
-                };
-
-                weatherInformationToDb.Cities.Add(city);
-            }
-
-            _context.WeatherInformations.Update(weatherInformationToDb);
-            await _context.SaveChangesAsync();
         }
     }
 }
